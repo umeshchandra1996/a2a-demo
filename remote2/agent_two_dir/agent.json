@@ -1,0 +1,12 @@
+{
+  "name": "agent_two",
+  "description": "Formats and cleans up unorganized raw data blocks into polished Markdown.",
+  "url": "http://127.0.0.1:8082/a2a/agent_two_dir",
+  "version": "1.0.0",
+  "capabilities": {},
+  "default_input_modes": ["application/json"],
+  "default_output_modes": ["application/json"],
+  "preferred_transport": "JSONRPC",
+  "protocol_version": "0.3.0",
+  "skills": []
+}

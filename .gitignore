@@ -1,0 +1,92 @@
+# ==============================================================================
+# AI / Machine Learning Specifics
+# ==============================================================================
+# Large datasets and raw data (adjust extensions as needed)
+data/
+*.csv
+*.jsonl
+*.parquet
+*.h5
+*.h5py
+
+# Model weights, checkpoints, and serialized outputs
+models/
+checkpoints/
+*.pt
+*.pth
+*.pkl
+*.pickle
+*.onnx
+*.gguf
+*.ckpt
+
+# AI framework specific caches
+.cache/
+.huggingface/
+.triton/
+
+# TensorBoard logs and training metrics
+runs/
+logs/
+*.tfevents.*
+
+# ==============================================================================
+# Standard Python Specifics
+# ==============================================================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments (Crucial to ignore)
+.venv/
+venv/
+env/
+ENV/
+.env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Packaging, distribution, and build artifacts
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ==============================================================================
+# Security & Environment Variables
+# ==============================================================================
+# API Keys (OpenAI, Anthropic, HuggingFace, etc.) and database credentials
+.env
+.env.local
+.env.*.local
+*.secret
+secrets.toml
+
+# ==============================================================================
+# OS & IDE Specifics
+# ==============================================================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+
+.adk
+.env
+./env
+uv.lock

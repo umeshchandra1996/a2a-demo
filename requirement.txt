@@ -1,0 +1,7 @@
+google-adk==1.35.2
+groq
+python-dotenv
+google-adk[a2a]==1.35.2
+litellm
+uvicorn 
+starlette
