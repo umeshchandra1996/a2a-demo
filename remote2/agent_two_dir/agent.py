@@ -23,7 +23,9 @@ root_agent = Agent(
         "Make sure to preserve the original content and meaning of the text, but improve clarity, grammar, and formatting. "
         "The input JSON will follow this schema: {\"title\": string, \"items\": [{\"id\": integer, \"text\": string}] }.",
         "Make output user understandable and concise. Avoid unnecessary repetition or verbosity. "
-    """
+    """,
+    # output_schema=Report
+
 )
 
 a2a_app = to_a2a(agent=root_agent,port=8082)

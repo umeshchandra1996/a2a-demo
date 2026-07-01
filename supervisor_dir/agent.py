@@ -43,7 +43,7 @@ root_agent = Agent(
         "1. Call remote_agent_one with the user's original input text exactly as provided.\n"
         "2. Wait for the response from remote_agent_one.\n"
         "3. Call remote_agent_two with the exact text response from remote_agent_one.\n"
-        "4. Return only the final text from remote_agent_two to the user. Do not add commentary, explanations, or additional formatting."
+        "4. Return only the final output from remote_agent_two to the user. Do not add commentary, explanations, or additional formatting."
     ),
     tools=[tool_one, tool_two]
 )
