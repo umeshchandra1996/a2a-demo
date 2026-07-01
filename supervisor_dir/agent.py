@@ -4,11 +4,11 @@ from google.adk.models.lite_llm import LiteLlm
 from google.adk.tools.agent_tool import AgentTool
 from google.adk.agents.remote_a2a_agent import AGENT_CARD_WELL_KNOWN_PATH
 import litellm
-import config
 import os
 
 litellm._turn_on_debug()
-groq_model = LiteLlm(model=config.Config.MODEL_llama3_70b,api_key=os.environ.get("GROQ_API_KEY"))
+from config import Config
+groq_model = LiteLlm(model=Config.MODEL_llama3_70b,api_key=os.environ.get("GROQ_API_KEY"))
 
 # Point to the local endpoints the CLI hosts them on
 remote_agent_one = RemoteA2aAgent(

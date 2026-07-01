@@ -1,10 +1,15 @@
 from google.adk import Agent
 from google.adk.models.lite_llm import LiteLlm
 import os
+import sys
 from pathlib import Path
 from google.adk.a2a.utils.agent_to_a2a import to_a2a 
-import config
-groq_model = LiteLlm(model=config.Config.MODEL_llama3_70b,api_key=os.environ.get("GROQ_API_KEY"))
+# Ensure repository root is on sys.path so `from config import Config` works
+REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if REPO_ROOT not in sys.path:
+    sys.path.insert(0, REPO_ROOT)
+from config import Config
+groq_model = LiteLlm(model=Config.MODEL_llama3_70b,api_key=os.environ.get("GROQ_API_KEY"))
 
 root_agent = Agent(
     name="agent_two",
@@ -15,8 +20,3 @@ root_agent = Agent(
 
 a2a_app = to_a2a(agent=root_agent,port=8082)
 
-# # CRITICAL ADDITION: Run the application server
-# if __name__ == "__main__":
-#     import uvicorn
-#     # Use "0.0.0.0" to allow network access, or "localhost" for local-only testing
-#     uvicorn.run(a2a_app, host="127.0.0.1", port=8082)
