@@ -18,7 +18,11 @@ root_agent = Agent(
     name="agent_one",
     model=groq_model,
     description="Gathers facts and compiles raw technical specifications.",
-    instruction="You are a Researcher. Provide raw, factual bullet points.",
+    instruction="""
+        "You are a Researcher. When given a user's prompt, return exactly one valid JSON string. "
+        "Do not include any extra explanation, markdown, or text outside the JSON object. "
+        "The JSON must follow this schema: {\"title\": string, \"items\": [{\"id\": integer, \"text\": string}] }.",
+    """,
     # tools=[ddg_search]
 )
 

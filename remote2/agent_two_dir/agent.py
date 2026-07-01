@@ -9,13 +9,21 @@ REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 if REPO_ROOT not in sys.path:
     sys.path.insert(0, REPO_ROOT)
 from config import Config
+from models import Report
+import json
 groq_model = LiteLlm(model=Config.MODEL_llama3_70b,api_key=os.environ.get("GROQ_API_KEY"))
 
 root_agent = Agent(
     name="agent_two",
     model=groq_model,
     description="Formats and cleans up unorganized raw data blocks into polished Markdown.",
-    instruction="You are an Editor. Clean up raw text and structure it cleanly with headers."
+    instruction="""
+        "You are an Editor. You will receive a single argument that is a JSON string from agent_one. "
+        "Do not generate any additional JSON. Output only clean Markdown where the title is an H1 and each item is a bullet point."
+        "Make sure to preserve the original content and meaning of the text, but improve clarity, grammar, and formatting. "
+        "The input JSON will follow this schema: {\"title\": string, \"items\": [{\"id\": integer, \"text\": string}] }.",
+        "Make output user understandable and concise. Avoid unnecessary repetition or verbosity. "
+    """
 )
 
 a2a_app = to_a2a(agent=root_agent,port=8082)

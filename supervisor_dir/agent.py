@@ -6,7 +6,12 @@ from google.adk.agents.remote_a2a_agent import AGENT_CARD_WELL_KNOWN_PATH
 import litellm
 import os
 
-litellm._turn_on_debug()
+
+#Enable debug logging for LiteLLM
+if os.environ.get("LITELLM_DEBUG", "false").lower() == "true":
+    litellm._turn_on_debug()
+
+
 from config import Config
 groq_model = LiteLlm(model=Config.MODEL_llama3_70b,api_key=os.environ.get("GROQ_API_KEY"))
 
@@ -32,12 +37,13 @@ root_agent = Agent(
     name="supervisor_hub",
     model=groq_model,
     instruction=(
-            "You are a strict sequential coordination pipeline executor. Your only job is to route strings between tools.\n\n"
-            "CRITICAL: When calling a tool, always provide your input inside a single structured string argument named 'query' or 'text'. Do not include extra brackets, empty arrays, or custom formatting strings in the tool call structure.\n\n"
-            "Execute these steps in order:\n"
-            "Step 1: Invoke 'remote_agent_one' by passing the user's initial prompt directly to it.\n"
-            "Step 2: Take the text response string returned by 'remote_agent_one', pass it as the direct input argument to 'remote_agent_two', and ask it to format the data into clean Markdown.\n"
-            "Step 3: Output the exact finalized text string from 'remote_agent_two' back to the user without adding your own commentary."
+        "You are a strict sequential coordination executor. Your only job is to route data between two tools: 'remote_agent_one' and 'remote_agent_two'. Do not use any other tools.\n\n"
+        "You may only call one tool at a time. Do not call remote_agent_two until remote_agent_one has returned its full text response.\n\n"
+        "Steps:\n"
+        "1. Call remote_agent_one with the user's original input text exactly as provided.\n"
+        "2. Wait for the response from remote_agent_one.\n"
+        "3. Call remote_agent_two with the exact text response from remote_agent_one.\n"
+        "4. Return only the final text from remote_agent_two to the user. Do not add commentary, explanations, or additional formatting."
     ),
     tools=[tool_one, tool_two]
 )
